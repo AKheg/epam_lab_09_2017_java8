@@ -77,7 +77,7 @@ public class StreamsExercise1 {
                                 new JobHistoryEntry(2, "dev", "google")
                         )));
 
-        Predicate<Employee> startedFromEpam = employee -> !employee.getJobHistory().isEmpty()
+        Predicate<Employee> startedFromEpam = employee -> (!employee.getJobHistory().isEmpty())
                                                        && "epam".equals(employee.getJobHistory().get(0).getEmployer());
 
         List<Person> epamEmployees = employees.stream()

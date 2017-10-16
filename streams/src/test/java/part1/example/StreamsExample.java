@@ -17,15 +17,15 @@ public class StreamsExample {
 
     @Test
     public void checkJohnsLastNames() {
-        String[] johnsLastNames = getEmployees().stream()
+        List johnsLastNames = getEmployees().stream()
                 .map(Employee::getPerson)
                 .filter(e -> e.getFirstName().equals("John"))
                 .map(Person::getLastName)
-                .distinct()
-                .toArray(String[]::new);
-//                                                    .collect(Collectors.toList());
+               .distinct()
+             //   .toArray(String[]::new)
+                                                   .collect(Collectors.toList());
 
-        assertEquals(Collections.singletonList("Galt"), johnsLastNames);
+        assertEquals(Arrays.asList("Galt", "Doe", "White"), johnsLastNames);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class StreamsExample {
         // SUBSIZED
 
 
-        System.out.println(jobHistoryEntry);
+       // System.out.println(jobHistoryEntry);
     }
 
     @Test
