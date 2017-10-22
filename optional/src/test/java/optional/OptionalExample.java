@@ -2,9 +2,13 @@ package optional;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +23,7 @@ public class OptionalExample {
 
         o1.orElse("t");
         o1.orElseGet(() -> "t");
-        o1.orElseThrow(() -> new UnsupportedOperationException());
+        //o1.orElseThrow(() -> new UnsupportedOperationException());
     }
 
     @Test
@@ -47,18 +51,33 @@ public class OptionalExample {
         } else {
             actual = Optional.empty();
         }
-
         assertEquals(expected, actual);
     }
 
     @Test
     public void flatMap() {
-        throw new UnsupportedOperationException("Not implemented");
+        Optional<String> o1 = getOptional();
+        Function<String, Optional<List<Character>>> flatMapperFunction = string -> {
+            Optional<List<Character>> characterList = Optional.of(new ArrayList<Character>());
+            IntStream chars = string.chars();
+            chars.forEach(ch -> characterList.get().add((char) ch));
+            return characterList;
+        };
+
+        Optional<List<Character>> expected = o1.flatMap(flatMapperFunction);
+        Optional<List<Character>> actual = (o1.isPresent())? flatMapperFunction.apply(o1.get()) : Optional.empty();
+
+        assertEquals(expected, actual);
     }
 
     @Test
     public void filter() {
-        throw new UnsupportedOperationException("Not implemented");
+        Optional<String> o1 = getOptional();
+        Predicate<String> predicate = str -> str.endsWith("c");
+        Optional<String> expected = o1.filter(predicate);
+
+        Optional<String> actual = (o1.isPresent()) ? (predicate.test(o1.get()) ? o1 : Optional.empty()) : Optional.empty();
+        assertEquals(expected, actual);
     }
 
     private Optional<String> getOptional() {
