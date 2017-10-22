@@ -76,6 +76,14 @@ public class CollectorsExercise1 {
     }
 
     private Map<String, Person> getCoolestByPosition(List<Employee> employees) {
+        return employees.stream()
+                .flatMap(employee -> employee.getJobHistory().stream()
+                .map(person -> new PersonPositionDuration(employee.getPerson(), person.getPosition(),person.getDuration())))
+                .collect(Collectors.groupingBy(PersonPositionDuration::getPosition,
+                         Collectors.collectingAndThen(
+                         Collectors.maxBy(
+                         Comparator.comparingInt(PersonPositionDuration::getDuration)), (Optional<PersonPositionDuration> o) -> o.get().getPerson()
+                                 )));
         // First option
         // Collectors.maxBy
         // Collectors.collectingAndThen
@@ -85,7 +93,7 @@ public class CollectorsExercise1 {
         // Collectors.toMap
         // iterate twice: stream...collect(...).stream()...
         // TODO
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
     private List<Employee> getEmployees() {
