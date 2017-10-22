@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
 @Measurement(iterations = 5, time = 3)
 public class ArrayIntBenchmark {
 
-    @Param({"100000"})
+    //@Param({"100000"})
     public int length;
 
     public int[] array;

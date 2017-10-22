@@ -54,4 +54,9 @@ public class JobHistoryEntry {
     public int hashCode() {
         return Objects.hash(duration, position, employer);
     }
+    
+    public static void main(String[] args) {
+        System.out.println(Integer.compare(-222, -1));
+    }
+
 }

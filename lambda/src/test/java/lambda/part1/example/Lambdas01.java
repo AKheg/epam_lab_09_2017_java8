@@ -117,5 +117,4 @@ public class Lambdas01 {
 
         assertEquals(personByLastName.get("lastName 3"), new Person("name 3", "lastName 3", 20));
     }
-
 }
